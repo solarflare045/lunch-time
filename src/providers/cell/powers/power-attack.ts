@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 export class AttackPower extends Power {
   get color(): string  { return 'gold'; }
-  get icon(): string   { return 'color-wand'; }
+  get icon(): string   { return 'flash'; }
 
   action(): Observable<any> {
     return Observable.defer(() => {
