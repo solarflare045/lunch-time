@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-title start>
       Lunch Time
     </ion-title>
-
     <ion-buttons end>
+      <ion-toggle color="danger" [(ngModel)]="isQuantum" (ngModelChange)="saveQuantum($event)" style="display: inline-block;"></ion-toggle>      
       <button ion-button icon-only (click)="restart()" [hidden]="!game.ended">
         <ion-icon name="refresh"></ion-icon>
       </button>
