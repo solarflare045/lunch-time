@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Lunch Time
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="restart()" [hidden]="!game.ended">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item text-center>
+    <h1><b>
+      <span>Player {{ game.turn + 1 }}</span>
+      <span *ngIf="game.ended"> Loses</span>
+      <span *ngIf="!game.ended && (game.extraTurns > 0)"> ({{ game.extraTurns }} extra)</span>
+    </b></h1>
+  </ion-item>
+
+  <div class="square" *ngFor="let cell of board">
+    <div class="content" (click)="select(cell)" [style.background-color]='cell.color'>
+      <h1 [class]="cell.animation">
+        <ion-icon [name]="cell.icon" [class.icon-faint]="!cell.revealed">
+
+        </ion-icon>
+      </h1>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-range [(ngModel)]="players" min="1" max="10" step="1" snaps="true">
+      <ion-chip range-right>
+        <ion-label>
+          {{ players }}
+        </ion-label>
+      </ion-chip>
+    </ion-range>
+  </ion-toolbar>
+</ion-footer>
