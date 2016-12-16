@@ -31,6 +31,10 @@ export class Cell {
     return this._power.animation;
   }
 
+  public get disabled(): boolean {
+    return this._power.disabled;
+  }
+
   public get revealed(): boolean {
     return this._revealed;
   }
@@ -78,6 +82,9 @@ export class Cell {
   reveal(): Observable<any> {
     return Observable.defer(() => {
       if (this._revealed)
+        return Observable.empty();
+
+      if (this._power.disabled)
         return Observable.empty();
 
       this._revealed = true;

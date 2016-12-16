@@ -91,7 +91,7 @@ export class Game {
   }
 
   select(cell: Cell): Subscription {
-    if (this._busy || cell.revealed)
+    if (this._busy || cell.revealed || cell.disabled)
       return null;
 
     this._busy = true;

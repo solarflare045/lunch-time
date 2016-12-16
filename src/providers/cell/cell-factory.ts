@@ -7,6 +7,7 @@ import { Cell } from './cell';
 import { AttackPower } from './powers/power-attack';
 import { BaitPower } from './powers/power-bait';
 import { BombPower } from './powers/power-bomb';
+import { KeyPower } from './powers/power-key';
 import { NoScopePower } from './powers/power-noscope';
 import { NuclearPower } from './powers/power-nuclear';
 import { LosePower } from './powers/power-lose';
@@ -48,6 +49,9 @@ export class CellFactory {
 
     else if (rnd < 0.42)
       cls = ThunderDomePower; // 02%
+
+    else if (rnd < 0.45)
+      cls = KeyPower;         // 03%
 
     else
       cls = SafePower;

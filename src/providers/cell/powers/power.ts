@@ -13,4 +13,5 @@ export abstract class Power {
   public get animation(): string { return ''; }
   public abstract get color(): string;
   public abstract get icon(): string;
+  public get disabled(): boolean { return false; }
 }
