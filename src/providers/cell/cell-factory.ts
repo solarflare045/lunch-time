@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import _ from 'lodash';
+import seedrandom from 'seedrandom';
 
 import { Game } from '../game/game';
 
@@ -19,8 +20,10 @@ import { WifiPower } from './powers/power-wifi';
 
 @Injectable()
 export class CellFactory {
+  private random = seedrandom()
+
   create(game: Game): Cell {
-    let rnd = Math.random();
+    let rnd = this.random();
     let cls;
 
     if (rnd < 0.02)
@@ -61,6 +64,10 @@ export class CellFactory {
 
   createLose(game: Game): Cell {
     return this.build(game, LosePower);
+  }
+
+  reseed(seed: string): void {
+    this.random = seedrandom(seed);
   }
 
   private build(game: Game, PowerClass: any) {

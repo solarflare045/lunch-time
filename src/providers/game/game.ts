@@ -16,6 +16,10 @@ export class GameProvider {
   create(players: number): Game {
     return new Game(this.cellFactory, players);
   }
+
+  reseed(seed: string): void {
+    return this.cellFactory.reseed(seed);
+  }
 }
 
 export class Game {
