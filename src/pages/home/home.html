@@ -46,16 +46,16 @@
         </h1>
       </div>
     </div>
-  </ion-list>
 
-  <ion-item>
-    <span @spinInOut *ngFor="let player of game.players">
-      <ion-chip text-center>
-        <ion-label>{{ player.name }}</ion-label>
-        <ion-icon color="dark">{{ player.score }}</ion-icon>
-      </ion-chip>
-    </span>
-  </ion-item>
+    <ion-item>
+      <span @spinInOut *ngFor="let player of game.players">
+        <ion-chip text-center>
+          <ion-label>{{ player.name }}</ion-label>
+          <ion-icon color="dark">{{ player.score }}</ion-icon>
+        </ion-chip>
+      </span>
+    </ion-item>    
+  </ion-list>
 </ion-content>
 
 <ion-footer no-border *ngIf="game.ended">
