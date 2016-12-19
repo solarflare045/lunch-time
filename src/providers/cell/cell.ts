@@ -46,6 +46,16 @@ export class Cell {
   public get power(): Power {
     return this._power;
   }
+
+  public get state(): string {
+    return this.revealed
+      ? 'revealed'
+      : (
+          this.disabled
+            ? 'disabled'
+            : 'hidden'
+        );
+  }
   
   /**
    * Properties.

@@ -1,45 +1,73 @@
 <ion-header>
   <ion-navbar>
-    <ion-title start>
+    <ion-title>
       Lunch Time
     </ion-title>
+
     <ion-buttons end>
-      <ion-toggle color="danger" [(ngModel)]="isQuantum" (ngModelChange)="saveQuantum($event)" style="display: inline-block;"></ion-toggle>      
-      <button ion-button icon-only (click)="restart()" [hidden]="!game.ended">
-        <ion-icon name="refresh"></ion-icon>
+      <button ion-button icon-only (click)="presentOptions($event)">
+        <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-item text-center>
-    <h1><b>
-      <span>Player {{ game.turn + 1 }}</span>
-      <span *ngIf="game.ended"> Loses</span>
-      <span *ngIf="!game.ended && (game.extraTurns > 0)"> ({{ game.extraTurns }} extra)</span>
-    </b></h1>
-  </ion-item>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label>
+        <h1>
+          <b>
+            <span>{{ currentPlayer.name }}</span>
+          </b>
+        </h1>
+      </ion-label>
 
-  <div class="square" *ngFor="let cell of board">
-    <div class="content" (click)="select(cell)" [style.background-color]='cell.color'>
-      <h1 [class]="cell.animation">
-        <ion-icon [name]="cell.icon" [class.icon-faint]="!cell.revealed">
+      <div item-right text-center @spinInOut *ngIf="game.extraTurns > 0">
+        <ion-chip>
+          <ion-label><b>{{ game.extraTurns }}</b></ion-label>
+          <ion-icon color="attack" name="flash"></ion-icon>
+        </ion-chip>
+      </div>
 
-        </ion-icon>
-      </h1>
+      <div item-right text-center @spinInOut *ngIf="game.isReversed">
+        <ion-chip>
+          <ion-icon color="primary" name="refresh"></ion-icon>
+        </ion-chip>
+      </div>
+    </ion-item>
+
+    <div class="square" [@square]='cell.state' *ngFor="let cell of board">
+      <div class="content" (click)="select(cell)" [style.background-color]='cell.color'>
+        <h1 [class]="cell.animation">
+          <ion-icon [name]="cell.icon" [class.icon-faint]="!cell.revealed">
+
+          </ion-icon>
+        </h1>
+      </div>
     </div>
-  </div>
+  </ion-list>
+
+  <ion-item>
+    <span @spinInOut *ngFor="let player of game.players">
+      <ion-chip text-center>
+        <ion-label>{{ player.name }}</ion-label>
+        <ion-icon color="dark">{{ player.score }}</ion-icon>
+      </ion-chip>
+    </span>
+  </ion-item>
 </ion-content>
 
-<ion-footer>
+<ion-footer no-border *ngIf="game.ended">
   <ion-toolbar>
-    <ion-range [(ngModel)]="players" min="1" max="10" step="1" snaps="true">
-      <ion-chip range-right>
-        <ion-label>
-          {{ players }}
-        </ion-label>
-      </ion-chip>
-    </ion-range>
+    <button ion-button large full block color="danger" (click)="restart()" style="bottom: 0px;">
+      <ion-label>
+        Restart
+      </ion-label>
+
+      <ion-icon item-right name="refresh">
+
+      </ion-icon>
+    </button>
   </ion-toolbar>
 </ion-footer>

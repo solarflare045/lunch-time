@@ -1,0 +1,39 @@
+<ion-list>
+  <ion-list-header>
+    Options
+  </ion-list-header>
+
+  <ion-item>
+    <ion-icon name="shuffle" item-left>
+      
+    </ion-icon>
+
+    <ion-label>
+      Quantum
+    </ion-label>
+
+    <ion-toggle [(ngModel)]="homePage.isQuantum">
+
+    </ion-toggle>
+  </ion-item>
+
+  <button ion-item (click)="players()">
+    <ion-icon name="people" item-left>
+
+    </ion-icon>
+
+    <ion-label>
+      People
+    </ion-label>
+  </button>  
+
+  <button ion-item (click)="restart()">
+    <ion-icon name="refresh" item-left>
+
+    </ion-icon>
+
+    <ion-label>
+      Restart
+    </ion-label>
+  </button>
+</ion-list>

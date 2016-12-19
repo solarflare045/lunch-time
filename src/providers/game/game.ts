@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import { CellFactory } from '../cell/cell-factory';
 import { Cell } from '../cell/cell';
+import { Player } from '../players/players';
 
 const WIDTH = 5;
 
@@ -13,7 +14,7 @@ export class GameProvider {
     
   }
 
-  create(players: number): Game {
+  create(players: Player[]): Game {
     return new Game(this.cellFactory, players);
   }
 
@@ -34,14 +35,14 @@ export class Game {
 
   private _haltTurn: Subject<any> = new Subject();
 
-  constructor(private cellFactory: CellFactory, protected readonly players: number) {
-    if (this.players === 0) {
+  constructor(private cellFactory: CellFactory, public readonly players: Player[]) {
+    if (this.players.length === 0) {
       this._ended = true;
       return;
     }
 
     this.generate();
-    this._turn = _.sample(_.range(players));
+    this._turn = _.sample(_.range(players.length));
   }
 
   get board(): Cell[] {
@@ -60,7 +61,14 @@ export class Game {
     return this._repeat;
   }
 
+  get isReversed(): boolean {
+    return this._turnStep === -1;
+  }
+
   end(): void {
+    if (!this._ended)
+      this.players[this.turn].score++;
+
     this._ended = true;
     _.each(this.board, (cell) => cell.setPower(cell.power, cell.power));
   }
@@ -90,8 +98,8 @@ export class Game {
     this._repeat = this._repeatNext;
     this._repeatNext = 0;
     this._turn += this._turnStep;
-    if (this._turn < 0) this._turn += this.players;
-    if (this._turn >= this.players) this._turn -= this.players;
+    if (this._turn < 0) this._turn += this.players.length;
+    if (this._turn >= this.players.length) this._turn -= this.players.length;
   }
 
   select(cell: Cell): Subscription {
