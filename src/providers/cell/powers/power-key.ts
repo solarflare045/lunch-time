@@ -26,7 +26,10 @@ export class KeyPower extends Power {
       let lock = new LockedPower(cell);
       lock.owner = this.cell.game.turn;
 
-      if (cell) cell.setPower(lock, lock);
+      if (cell) {
+        cell.setPower(lock);
+        cell.setMark(lock);
+      }
 
       return Observable.timer(1000);
     });

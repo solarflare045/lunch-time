@@ -7,7 +7,7 @@ import { HomePage } from './home';
   templateUrl: 'home-options.html'
 })
 export class HomeOptionsPage {
-  private homePage: HomePage;
+  homePage: HomePage;
 
   constructor(private viewCtrl: ViewController) {
     this.homePage = this.viewCtrl.data;

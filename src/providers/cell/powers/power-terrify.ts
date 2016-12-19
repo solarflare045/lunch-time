@@ -25,10 +25,11 @@ export class TerrifyPower extends Power {
       )
       .flatMap((cells) => _.isEmpty(cells) ? Observable.empty() : Observable.timer(750).mapTo(cells))
       .do((cells) => {
-        _.each(cells, (cell) => {
+        _.each(cells, (cell: Cell) => {
           let Cls: any = _.sample([LosePower, BaitPower, BombPower, AttackPower, NoScopePower]);
           cell.hide();
-          cell.setPower(new Cls(cell), new TerrifyPower(cell));
+          cell.setPower(new Cls(cell));
+          cell.setMark(new TerrifyPower(cell));
         })
       });
   }
