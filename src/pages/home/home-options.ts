@@ -26,4 +26,8 @@ export class HomeOptionsPage {
   close() {
     this.viewCtrl.dismiss();
   }
+
+  saveQuantum(event: boolean) {
+    this.homePage.saveQuantum(event);
+  }
 }

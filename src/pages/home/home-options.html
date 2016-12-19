@@ -12,7 +12,7 @@
       Quantum
     </ion-label>
 
-    <ion-toggle [(ngModel)]="homePage.isQuantum">
+    <ion-toggle [(ngModel)]="homePage.isQuantum" (ngModelChange)="saveQuantum($event)">
 
     </ion-toggle>
   </ion-item>
