@@ -81,15 +81,19 @@ export class HomePage {
   }
 
   get playerCount(): number {
-    return this.playersProvider.count;
+    return this.players.length;
   }
 
   get players(): Player[] {
-    return this.playersProvider.players;
+    return this.game.players;
   }
 
   get currentPlayer(): Player {
-    return this.players[this.game.turn] || this.playersProvider.empty;
+    return this.players[this.game.turn];
+  }
+
+  get playersAreSetUp(): boolean {
+    return this.playersProvider.count > 0;
   }
 
   restart(): void {
@@ -103,7 +107,7 @@ export class HomePage {
   }
 
   private shuffle(): void {
-    this.game = this.gameProvider.create(_.clone(this.players)); // Shallow clone only!
+    this.game = this.gameProvider.create(_.clone(this.playersProvider.players)); // Shallow clone only!
     console.log(_.map(this.game.board, 'power'));
   }
 

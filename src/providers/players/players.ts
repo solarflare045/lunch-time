@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PlayersProvider {
-  readonly empty: Player = new Player('Unknown');
   readonly players: Player[] = [];
 
   get count(): number {

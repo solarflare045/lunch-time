@@ -14,7 +14,7 @@
 
 <ion-content>
   <ion-list no-lines>
-    <ion-item>
+    <ion-item *ngIf="currentPlayer != null">
       <ion-label>
         <h1>
           <b>
@@ -35,6 +35,10 @@
           <ion-icon color="primary" name="refresh"></ion-icon>
         </ion-chip>
       </div>
+    </ion-item>
+
+    <ion-item *ngIf="currentPlayer == null">
+      Add some players!
     </ion-item>
 
     <div class="square" [@square]='cell.state' *ngFor="let cell of board">
@@ -58,9 +62,9 @@
   </ion-list>
 </ion-content>
 
-<ion-footer no-border *ngIf="game.ended">
+<ion-footer no-border *ngIf="game.ended && playersAreSetUp">
   <ion-toolbar>
-    <button ion-button large full block color="danger" (click)="restart()" style="bottom: 0px;">
+    <button ion-button large full block color="danger" (click)="restart()">
       <ion-label>
         Restart
       </ion-label>
