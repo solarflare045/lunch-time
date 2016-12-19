@@ -60,6 +60,9 @@ export class HomePage {
     private playersProvider: PlayersProvider
   ) {
     this.shuffle();
+    this.playersProvider.load().then(() => {
+      this.shuffle();
+    })
     this.storage.get('isQuantum').then((isQuantum) => {
       if (isQuantum != null) {
         this.isQuantum = isQuantum;

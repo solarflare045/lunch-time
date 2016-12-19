@@ -44,6 +44,7 @@ export class PlayersPage {
           text: 'OK',
           handler: (data) => {
             player.name = data.name || player.name;
+            this.playersProvider.save()
           }
         }
       ]
