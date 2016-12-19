@@ -39,6 +39,6 @@
     "cordova-plugin-device",
     "cordova-plugin-splashscreen"
   ],
-  "cordovaPlatforms": [],
+  "cordovaPlatforms": ["android"],
   "description": "lunch-time: An Ionic project"
 }
