@@ -17,16 +17,16 @@ export class PlayersPage {
     this.players = this.playersProvider.players;
   }
 
-  create() {
+  create(): void {
     this.rename(this.playersProvider.add('New Player'));
   }
 
-  delete(player: Player) {
+  delete(player: Player): void {
     let index = _.findIndex(this.players, player);
     this.playersProvider.delete(index);
   }
 
-  rename(player: Player) {
+  rename(player: Player): void {
     this.alertCtrl.create({
       title: 'Name',
       inputs: [
@@ -50,7 +50,11 @@ export class PlayersPage {
     }).present();
   }
 
-  reorderItems(indexes) {
+  reorderItems(indexes): void {
     this.playersProvider.swap(indexes.from, indexes.to);
+  }
+
+  reset(): void {
+    this.players.forEach(player => player.score = 0);
   }
 }
