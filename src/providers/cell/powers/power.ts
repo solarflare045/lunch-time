@@ -3,7 +3,7 @@ import { Cell } from '../cell';
 
 export abstract class Power {
   constructor(public readonly cell: Cell) {
-
+    this.bound();
   }
 
   /**
@@ -14,4 +14,6 @@ export abstract class Power {
   public abstract get color(): string;
   public abstract get icon(): string;
   public get disabled(): boolean { return false; }
+
+  protected bound(): void { }
 }

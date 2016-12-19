@@ -8,6 +8,7 @@ import { Cell } from './cell';
 import { AttackPower } from './powers/power-attack';
 import { BaitPower } from './powers/power-bait';
 import { BombPower } from './powers/power-bomb';
+import { BuoyPower } from './powers/power-buoy';
 import { KeyPower } from './powers/power-key';
 import { NoScopePower } from './powers/power-noscope';
 import { NuclearPower } from './powers/power-nuclear';
@@ -55,6 +56,9 @@ export class CellFactory {
 
     else if (rnd < 0.45)
       cls = KeyPower;         // 03%
+
+    else if (rnd < 0.50)
+      cls = BuoyPower;        // 05%
 
     else
       cls = SafePower;

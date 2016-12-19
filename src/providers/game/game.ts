@@ -57,6 +57,10 @@ export class Game {
     return this._turn;
   }
 
+  get currentPlayer(): Player {
+    return this.players[this.turn];
+  }
+
   get extraTurns(): number {
     return this._repeat;
   }
@@ -70,7 +74,7 @@ export class Game {
       this.players[this.turn].score++;
 
     this._ended = true;
-    _.each(this.board, (cell) => cell.setPower(cell.power, cell.power));
+    _.each(this.board, (cell) => cell.setMark(cell.power));
   }
 
   addRepeat(turns: number): void {

@@ -81,8 +81,11 @@ export class Cell {
     this.down = down;
   }
 
-  setPower(power: Power, mark: Power = null) {
+  setPower(power: Power) {
     this._power = power;
+  }
+
+  setMark(mark: Power = null) {
     this._mark = mark;
   }
 
