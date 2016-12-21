@@ -6,6 +6,7 @@ import { Game } from '../game/game';
 
 import { Cell } from './cell';
 import { AttackPower } from './powers/power-attack';
+import { BailOutPower } from './powers/power-bailout';
 import { BaitPower } from './powers/power-bait';
 import { BombPower } from './powers/power-bomb';
 import { BuoyPower } from './powers/power-buoy';
@@ -59,6 +60,9 @@ export class CellFactory {
 
     else if (rnd < 0.50)
       cls = BuoyPower;        // 05%
+
+    else if (rnd < 0.51)
+      cls = BailOutPower;     // 01%
 
     else
       cls = SafePower;

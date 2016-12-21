@@ -27,8 +27,14 @@ export class GamePlayer {
   get name(): string { return this.player.name; }
   get score(): number { return this.player.score; }
 
+  bailed: boolean = false;
+
   constructor(public readonly player: Player) {
 
+  }
+
+  bailOut(): void {
+    this.bailed = true;
   }
 
   lose(): void {
@@ -104,6 +110,10 @@ export class Game {
     this._repeatNext += turns;
   }
 
+  resetRepeat(): void {
+    this._repeat = 0;
+  }
+
   reverse(): void {
     this._turnStep = -this._turnStep;
   }
@@ -120,9 +130,12 @@ export class Game {
 
     this._repeat = this._repeatNext;
     this._repeatNext = 0;
-    this._turn += this._turnStep;
-    if (this._turn < 0) this._turn += this.players.length;
-    if (this._turn >= this.players.length) this._turn -= this.players.length;
+
+    do {
+      this._turn += this._turnStep;
+      if (this._turn < 0) this._turn += this.players.length;
+      if (this._turn >= this.players.length) this._turn -= this.players.length;
+    } while (this.currentPlayer.bailed);
   }
 
   select(cell: Cell): Subscription {

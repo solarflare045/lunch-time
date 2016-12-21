@@ -57,6 +57,8 @@
           <ion-icon [color]="player.leading ? 'danger' : 'dark'">{{ player.score }}</ion-icon>
 
           <ion-label>{{ player.name }}</ion-label>
+
+          <ion-icon @spinInOut color="bailout" name="beer" *ngIf="player.bailed"></ion-icon>
         </ion-chip>
       </span>
     </ion-item>    
