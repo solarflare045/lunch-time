@@ -19,7 +19,7 @@ export class NuclearPower extends Power {
 
         return Observable.from(
           _.chain(this.cell.game.board)
-            .filter(cell => Math.random() < 0.5)
+            .filter(cell => !cell.disabled && Math.random() < 0.5)
             .each(cell => cell.setMark(this))
             .shuffle()
             .map(cell => Observable.timer((delay++) * 100).concat(cell.reveal()))
