@@ -7,11 +7,11 @@ import { Storage } from '@ionic/storage';
 import { HomeOptionsPage } from './home-options';
 import { PlayersPage } from '../players/players';
 import { Cell } from '../../providers/cell/cell';
-import { GameProvider, Game } from '../../providers/game/game';
+import { GameProvider, Game, GamePlayer } from '../../providers/game/game';
 import { QuantumProvider } from '../../providers/quantum/quantum';
-import { PlayersProvider, Player } from '../../providers/players/players';
+import { PlayersProvider } from '../../providers/players/players';
 
-interface OrderedPlayer extends Player {
+interface OrderedPlayer extends GamePlayer {
   leading: boolean;
 }
 
@@ -91,13 +91,13 @@ export class HomePage {
     return this.players.length;
   }
 
-  get players(): Player[] {
+  get players(): GamePlayer[] {
     return this.game.players;
   }
 
   get orderedPlayers(): OrderedPlayer[] {
     return _.chain(this.players)
-      .orderBy<Player>(['score', 'name'], ['desc', 'asc'])
+      .orderBy<GamePlayer>(['score', 'name'], ['desc', 'asc'])
       .map((player, i, arr) =>
         _.extend(player, {
           leading: player.score > 0 && player.score === arr[0].score
@@ -106,7 +106,7 @@ export class HomePage {
       .value();
   }
 
-  get currentPlayer(): Player {
+  get currentPlayer(): GamePlayer {
     return this.players[this.game.turn];
   }
 
@@ -125,7 +125,7 @@ export class HomePage {
   }
 
   private shuffle(): void {
-    this.game = this.gameProvider.create(_.clone(this.playersProvider.players)); // Shallow clone only!
+    this.game = this.gameProvider.create(this.playersProvider.players);
     console.log(_.map(this.game.board, 'power'));
   }
 
@@ -149,8 +149,8 @@ export class HomePage {
         setTimeout(() => loading.dismiss(), 500);
       }
     })
-    
   }
+  
   saveQuantum(isQuantum: boolean): void {
     this.storage.set('isQuantum', isQuantum);
   }

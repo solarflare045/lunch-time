@@ -23,6 +23,19 @@ export class GameProvider {
   }
 }
 
+export class GamePlayer {
+  get name(): string { return this.player.name; }
+  get score(): number { return this.player.score; }
+
+  constructor(public readonly player: Player) {
+
+  }
+
+  lose(): void {
+    this.player.score++;
+  }
+}
+
 export class Game {
   private _board: Cell[] = [];
   private _busy: boolean;
@@ -35,7 +48,13 @@ export class Game {
 
   private _haltTurn: Subject<any> = new Subject();
 
-  constructor(private cellFactory: CellFactory, public readonly players: Player[]) {
+  public readonly players: GamePlayer[];
+
+  constructor(private cellFactory: CellFactory, players: Player[]) {
+    this.players = _.chain(players)
+      .map(player => new GamePlayer(player))
+      .value();
+
     if (this.players.length === 0) {
       this._ended = true;
       return;
@@ -57,7 +76,7 @@ export class Game {
     return this._turn;
   }
 
-  get currentPlayer(): Player {
+  get currentPlayer(): GamePlayer {
     return this.players[this.turn];
   }
 
@@ -71,7 +90,7 @@ export class Game {
 
   end(): void {
     if (!this._ended)
-      this.players[this.turn].score++;
+      this.players[this.turn].lose();
 
     this._ended = true;
     _.each(this.board, (cell) => cell.setMark(cell.power));
