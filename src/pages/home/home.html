@@ -52,10 +52,10 @@
     </div>
 
     <ion-item>
-      <span @spinInOut *ngFor="let player of game.players">
+      <span @spinInOut *ngFor="let player of orderedPlayers">
         <ion-chip text-center>
+          <ion-icon [color]="player.leading ? 'danger' : 'dark'">{{ player.score }}</ion-icon>
           <ion-label>{{ player.name }}</ion-label>
-          <ion-icon color="dark">{{ player.score }}</ion-icon>
         </ion-chip>
       </span>
     </ion-item>    

@@ -11,6 +11,10 @@ import { GameProvider, Game } from '../../providers/game/game';
 import { QuantumProvider } from '../../providers/quantum/quantum';
 import { PlayersProvider, Player } from '../../providers/players/players';
 
+interface OrderedPlayer extends Player {
+  leading: boolean;
+}
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -89,6 +93,17 @@ export class HomePage {
 
   get players(): Player[] {
     return this.game.players;
+  }
+
+  get orderedPlayers(): OrderedPlayer[] {
+    return _.chain(this.players)
+      .orderBy<Player>(['score', 'name'], ['desc', 'asc'])
+      .map((player, i, arr) =>
+        _.extend(player, {
+          leading: player.score > 0 && player.score === arr[0].score
+        })
+      )
+      .value();
   }
 
   get currentPlayer(): Player {
