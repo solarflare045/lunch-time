@@ -27,14 +27,21 @@ export class GamePlayer {
   get name(): string { return this.player.name; }
   get score(): number { return this.player.score; }
 
+  crazy: boolean = false;
   bailed: boolean = false;
 
   constructor(public readonly player: Player) {
 
   }
 
-  bailOut(): void {
+  setBailed(): void {
     this.bailed = true;
+    this.crazy = false;
+  }
+
+  setCrazy(): void {
+    this.bailed = false;
+    this.crazy = true;
   }
 
   lose(): void {
@@ -123,19 +130,38 @@ export class Game {
   }
 
   passTurn(): void {
-    if (this._repeat > 0) {
-      this._repeat--;
-      return;
+    try {
+      if (this._repeat > 0) {
+        this._repeat--;
+        return;
+      }
+
+      this._repeat = this._repeatNext;
+      this._repeatNext = 0;
+
+      do {
+        this._turn += this._turnStep;
+        if (this._turn < 0) this._turn += this.players.length;
+        if (this._turn >= this.players.length) this._turn -= this.players.length;
+      } while (this.currentPlayer.bailed);
+
+    } finally {
+      this.startTurn();
+    }    
+  }
+
+  private startTurn(): void {
+    if (this.currentPlayer.crazy) {
+      let cells = _.chain(this.board)
+        .filter(cell => !cell.disabled && !cell.revealed)
+        .value();
+
+      if (cells.length > 0)
+        setTimeout(
+          () => this.select(_.sample(cells)),
+          1000
+        );
     }
-
-    this._repeat = this._repeatNext;
-    this._repeatNext = 0;
-
-    do {
-      this._turn += this._turnStep;
-      if (this._turn < 0) this._turn += this.players.length;
-      if (this._turn >= this.players.length) this._turn -= this.players.length;
-    } while (this.currentPlayer.bailed);
   }
 
   select(cell: Cell): Subscription {

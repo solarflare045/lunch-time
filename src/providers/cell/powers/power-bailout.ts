@@ -20,7 +20,7 @@ export class BailOutPower extends Power {
         this.cell.game.resetRepeat();
 
       if (remaining > 2)
-        this.cell.game.currentPlayer.bailOut();
+        this.cell.game.currentPlayer.setBailed();
 
       return Observable.empty();
     })

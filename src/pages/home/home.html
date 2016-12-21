@@ -30,6 +30,12 @@
         </ion-chip>
       </div>
 
+      <div item-right text-center @spinInOut *ngIf="game.currentPlayer.crazy">
+        <ion-chip>
+          <ion-icon color="crazy" name="happy"></ion-icon>
+        </ion-chip>
+      </div>
+      
       <div item-right text-center @spinInOut *ngIf="game.isReversed">
         <ion-chip>
           <ion-icon color="primary" name="refresh"></ion-icon>
@@ -59,6 +65,7 @@
           <ion-label>{{ player.name }}</ion-label>
 
           <ion-icon @spinInOut color="bailout" name="beer" *ngIf="player.bailed"></ion-icon>
+          <ion-icon @spinInOut color="crazy" name="happy" *ngIf="player.crazy"></ion-icon>
         </ion-chip>
       </span>
     </ion-item>    

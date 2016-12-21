@@ -10,6 +10,7 @@ import { BailOutPower } from './powers/power-bailout';
 import { BaitPower } from './powers/power-bait';
 import { BombPower } from './powers/power-bomb';
 import { BuoyPower } from './powers/power-buoy';
+import { CrazyPower } from './powers/power-crazy';
 import { KeyPower } from './powers/power-key';
 import { NoScopePower } from './powers/power-noscope';
 import { NuclearPower } from './powers/power-nuclear';
@@ -63,6 +64,9 @@ export class CellFactory {
 
     else if (rnd < 0.51)
       cls = BailOutPower;     // 01%
+
+    else if (rnd < 0.52)
+      cls = CrazyPower;       // 01%
 
     else
       cls = SafePower;

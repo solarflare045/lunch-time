@@ -130,6 +130,9 @@ export class HomePage {
   }
 
   select(cell: Cell): void {
+    if (this.game.currentPlayer.crazy)
+      return;
+      
     this.game.select(cell);
   }
 
