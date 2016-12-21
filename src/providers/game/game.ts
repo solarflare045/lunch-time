@@ -31,7 +31,8 @@ export class GamePlayer {
   bailed: boolean = false;
 
   constructor(public readonly player: Player) {
-
+    if (~this.name.toLowerCase().indexOf('crazy'))
+      this.setCrazy();
   }
 
   setBailed(): void {
@@ -40,8 +41,8 @@ export class GamePlayer {
   }
 
   setCrazy(): void {
-    this.bailed = false;
-    this.crazy = true;
+    // A Bailed player cannot become crazy.
+    this.crazy = !this.bailed;
   }
 
   lose(): void {
@@ -75,6 +76,7 @@ export class Game {
 
     this.generate();
     this._turn = _.sample(_.range(players.length));
+    this.startTurn();
   }
 
   get board(): Cell[] {

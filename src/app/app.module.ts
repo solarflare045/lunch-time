@@ -7,6 +7,7 @@ import { deepLinkConfig, componentsConfig } from './routes';
 import { MyApp } from './app.component';
 
 import { CellFactory } from '../providers/cell/cell-factory';
+import { CellConfigProvider } from '../providers/cell/cell-config';
 import { GameProvider } from '../providers/game/game';
 import { PlayersProvider } from '../providers/players/players';
 import { QuantumProvider } from '../providers/quantum/quantum';
@@ -26,6 +27,7 @@ import { QuantumProvider } from '../providers/quantum/quantum';
   ],
   providers: [
     CellFactory,
+    CellConfigProvider,
     GameProvider,
     QuantumProvider,
     PlayersProvider,
