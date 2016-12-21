@@ -80,6 +80,10 @@ export class Game {
   get board(): Cell[] {
     return this._board;
   }
+
+  get busy(): boolean {
+    return this._busy;
+  }
   
   get ended(): boolean {
     return this._ended;

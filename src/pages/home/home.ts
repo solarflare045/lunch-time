@@ -47,6 +47,17 @@ interface OrderedPlayer extends GamePlayer {
 
       transition('void => *', animate('350ms ease-out')),
       transition('revealed <=> hidden, hidden <=> disabled, disabled <=> revealed', animate('300ms ease-out')),
+    ]),
+
+    trigger('gameStateChip', [
+      state('void',       style({ opacity: 0.0 })),
+
+      state('restaurant', style({ "background-color": "red"             })),
+      state('time',       style({ "background-color": "gold"            })),
+      state('checkmark',  style({ "background-color": "mediumseagreen", opacity: 0.0  })),
+      state('happy',      style({ "background-color": "gold"            })),
+
+      transition('* <=> *', animate('250ms linear'))
     ])
   ]
 })
@@ -81,6 +92,19 @@ export class HomePage {
 
   changePlayers() {
     this.navCtrl.push(PlayersPage);
+  }
+
+  get gameState(): string {
+    if (this.game.ended)
+      return 'restaurant';
+
+    else if (this.game.busy)
+      return 'time';
+
+    else if (this.game.currentPlayer.crazy)
+      return 'happy';
+
+    return 'checkmark';
   }
 
   get board(): Cell[] {
@@ -132,7 +156,7 @@ export class HomePage {
   select(cell: Cell): void {
     if (this.game.currentPlayer.crazy)
       return;
-      
+
     this.game.select(cell);
   }
 

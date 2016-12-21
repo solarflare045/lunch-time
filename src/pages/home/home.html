@@ -15,6 +15,14 @@
 <ion-content>
   <ion-list no-lines>
     <ion-item *ngIf="currentPlayer != null">
+      <div item-left text-center>
+        <ion-chip>
+          <ion-icon [@gameStateChip]="gameState" [name]="gameState">
+
+          </ion-icon>
+        </ion-chip>
+      </div>
+
       <ion-label>
         <h1>
           <b>
@@ -35,7 +43,7 @@
           <ion-icon color="crazy" name="happy"></ion-icon>
         </ion-chip>
       </div>
-      
+
       <div item-right text-center @spinInOut *ngIf="game.isReversed">
         <ion-chip>
           <ion-icon color="primary" name="refresh"></ion-icon>
@@ -58,7 +66,7 @@
     </div>
 
     <ion-item>
-      <span *ngFor="let player of orderedPlayers; trackBy: player?.name">
+      <span *ngFor="let player of orderedPlayers">
         <ion-chip text-center>
           <ion-icon [color]="player.leading ? 'danger' : 'dark'">{{ player.score }}</ion-icon>
 
