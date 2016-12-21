@@ -12,7 +12,6 @@ export class BuoyPower extends Power {
 
   bound(): void {
     this.cell.setMark(this);
-    console.log('Bound?');
   }
 
   get disabled(): boolean {
