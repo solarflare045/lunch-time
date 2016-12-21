@@ -13,16 +13,19 @@ export class NuclearPower extends Power {
   }
 
   action(): Observable<any> {
-    return Observable.timer(2000)
-      .flatMap(() =>
-        Observable.from(
+    return Observable.timer(250)
+      .flatMap(() => {
+        let delay = 20;
+
+        return Observable.from(
           _.chain(this.cell.game.board)
             .filter(cell => Math.random() < 0.5)
-            .map(cell => cell.reveal())
+            .each(cell => cell.setMark(this))
             .shuffle()
+            .map(cell => Observable.timer((delay++) * 100).concat(cell.reveal()))
             .value()
-        )
-      )
+        );
+      })
       .mergeAll();
   }
 }
