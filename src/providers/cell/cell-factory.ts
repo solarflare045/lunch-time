@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import _ from 'lodash';
 import seedrandom from 'seedrandom';
 
 import { Game } from '../game/game';

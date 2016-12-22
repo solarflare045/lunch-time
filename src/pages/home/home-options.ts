@@ -23,6 +23,11 @@ export class HomeOptionsPage {
     this.homePage.changePlayers();
   }
 
+  powers() {
+    this.close();
+    this.homePage.changePowers();
+  }
+
   close() {
     this.viewCtrl.dismiss();
   }

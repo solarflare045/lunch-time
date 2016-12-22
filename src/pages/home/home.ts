@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 
 import { HomeOptionsPage } from './home-options';
 import { PlayersPage } from '../players/players';
+import { PowersPage } from '../powers/powers';
 import { Cell } from '../../providers/cell/cell';
 import { GameProvider, Game, GamePlayer } from '../../providers/game/game';
 import { QuantumProvider } from '../../providers/quantum/quantum';
@@ -92,6 +93,10 @@ export class HomePage {
 
   changePlayers() {
     this.navCtrl.push(PlayersPage);
+  }
+
+  changePowers() {
+    this.navCtrl.push(PowersPage);
   }
 
   get gameState(): string {

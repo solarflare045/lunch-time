@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Powers
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="reset()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let power of powers" [class.power-disabled]="!power.weight" (click)="modify(power)">
+      <ion-chip item-left text-center>
+        <ion-icon class="icon-black" [name]="power.instance.icon" [style.background-color]="power.instance.color">
+
+        </ion-icon>
+      </ion-chip>
+
+      <h2>{{ power.name }}</h2>
+      <p text-wrap>{{ power.description }}</p>
+
+      <div item-right>
+        {{ power.chance * 100 | number:'1.0-0' }}%
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

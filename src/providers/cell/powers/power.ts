@@ -3,7 +3,8 @@ import { Cell } from '../cell';
 
 export abstract class Power {
   constructor(public readonly cell: Cell) {
-    this.bound();
+    if (cell)
+      this.bound();
   }
 
   /**
