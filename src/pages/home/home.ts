@@ -167,20 +167,24 @@ export class HomePage {
 
   reseed(): Observable<string> {
     let loading = this.loadingCtrl.create({
-      content: 'Splitting universe...'
+      content: 'Splitting Universe...'
     });
     loading.present();
-    return this.quantumProvider.getQuantum().single().do({
-      next: (seed) => {
-        this.gameProvider.reseed(seed);
-        loading.setContent('YAY!');
-        loading.dismiss();
-      },
-      error: () => {
-        loading.setContent('Didn\'t work');
-        setTimeout(() => loading.dismiss(), 500);
-      }
-    })
+    return this.quantumProvider.getQuantum()
+      .timeout(2000)
+      .single()
+      .do({
+        next: (seed) => {
+          this.gameProvider.reseed(seed);
+          loading.setContent('Meow!');
+          loading.dismiss();
+        },
+        error: () => {
+          loading.setContent('Quantum Random Unavailable');
+          setTimeout(() => loading.dismiss(), 500);
+        }
+      })
+      .catch(() => Observable.empty<string>())
   }
   
   saveQuantum(isQuantum: boolean): void {
