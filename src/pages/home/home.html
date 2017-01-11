@@ -57,7 +57,7 @@
 
     <div class="square" [@square]='cell.state' *ngFor="let cell of board">
       <div class="content" (click)="select(cell)" [style.background-color]='cell.color'>
-        <h1 [class]="cell.animation">
+        <h1 [class]="cell.animation" no-margin>
           <ion-icon [name]="cell.icon" [class.icon-faint]="!cell.revealed">
 
           </ion-icon>
