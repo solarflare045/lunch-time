@@ -2,7 +2,7 @@ import { Power } from './power';
 import { Observable } from 'rxjs';
 import _ from 'lodash';
 
-const DIRECTIONS = ['left', 'up', 'right', 'down'];
+const DIRECTIONS = [ 'left', 'up', 'right', 'down' ];
 
 export class NoScopePower extends Power {
   private index: number = _.sample(_.range(4));

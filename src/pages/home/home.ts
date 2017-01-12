@@ -24,26 +24,26 @@ interface OrderedPlayer extends GamePlayer {
     trigger('spinInOut', [
       state('void', style({
         opacity: 0.0,
-        transform: 'rotate(270deg) scale(0)'
+        transform: 'rotate(270deg) scale(0)',
       })),
 
-      transition('void <=> *', animate('350ms ease-out'))
+      transition('void <=> *', animate('350ms ease-out')),
     ]),
 
     trigger('square', [
       state('void', style({
         opacity: 0.0,
-        transform: 'scale(0)'
+        transform: 'scale(0)',
       })),
 
       state('revealed', style({
-        transform: 'scale(0.9)'
+        transform: 'scale(0.9)',
       })),
       state('hidden', style({
-        transform: 'scale(1)'
+        transform: 'scale(1)',
       })),
       state('disabled', style({
-        opacity: 0.6
+        opacity: 0.6,
       })),
 
       transition('void => *', animate('350ms ease-out')),
@@ -53,14 +53,14 @@ interface OrderedPlayer extends GamePlayer {
     trigger('gameStateChip', [
       state('void',       style({ opacity: 0.0 })),
 
-      state('restaurant', style({ "background-color": "red"             })),
-      state('time',       style({ "background-color": "gold"            })),
-      state('checkmark',  style({ "background-color": "mediumseagreen", opacity: 0.0  })),
-      state('happy',      style({ "background-color": "gold"            })),
+      state('restaurant', style({ 'background-color': 'red'             })),
+      state('time',       style({ 'background-color': 'gold'            })),
+      state('checkmark',  style({ 'background-color': 'mediumseagreen', opacity: 0.0  })),
+      state('happy',      style({ 'background-color': 'gold'            })),
 
-      transition('* <=> *', animate('250ms linear'))
-    ])
-  ]
+      transition('* <=> *', animate('250ms linear')),
+    ]),
+  ],
 })
 export class HomePage {
   game: Game;
@@ -78,12 +78,12 @@ export class HomePage {
     this.shuffle();
     this.playersProvider.load().then(() => {
       this.shuffle();
-    })
+    });
     this.storage.get('isQuantum').then((isQuantum) => {
       if (isQuantum != null) {
         this.isQuantum = isQuantum;
       }
-    })
+    });
   }
 
   presentOptions(myEvent) {
@@ -126,10 +126,10 @@ export class HomePage {
 
   get orderedPlayers(): OrderedPlayer[] {
     return _.chain(this.players)
-      .orderBy<GamePlayer>(['score', 'name'], ['desc', 'asc'])
+      .orderBy<GamePlayer>([ 'score', 'name' ], [ 'desc', 'asc' ])
       .map((player, i, arr) =>
         _.extend(player, {
-          leading: player.score > 0 && player.score === arr[0].score
+          leading: player.score > 0 && player.score === arr[0].score,
         })
       )
       .value();
@@ -146,8 +146,8 @@ export class HomePage {
   restart(): void {
     if (this.isQuantum) {
       this.reseed().subscribe({
-        complete: () => this.shuffle()
-      })
+        complete: () => this.shuffle(),
+      });
     } else {
       this.shuffle();
     }
@@ -167,7 +167,7 @@ export class HomePage {
 
   reseed(): Observable<string> {
     let loading = this.loadingCtrl.create({
-      content: 'Splitting Universe...'
+      content: 'Splitting Universe...',
     });
     loading.present();
     return this.quantumProvider.getQuantum()
@@ -182,9 +182,9 @@ export class HomePage {
         error: () => {
           loading.setContent('Quantum Random Unavailable');
           setTimeout(() => loading.dismiss(), 500);
-        }
+        },
       })
-      .catch(() => Observable.empty<string>())
+      .catch(() => Observable.empty<string>());
   }
   
   saveQuantum(isQuantum: boolean): void {

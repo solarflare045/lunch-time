@@ -14,7 +14,7 @@ export class BombPower extends Power {
   action(): Observable<any> {
     console.log(this.cell.getAdjacent());
     return Observable.from(this.cell.getAdjacent())
-      .map(cell =>
+      .map((cell) =>
         cell.revealed
           ? Observable.empty()
           : Observable.timer(750).concat(cell.reveal())

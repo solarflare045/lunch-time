@@ -17,7 +17,7 @@ export class PlayersProvider {
           this.players.push(new Player(player));
         }
       }
-    })
+    });
   }
 
   get count(): number {

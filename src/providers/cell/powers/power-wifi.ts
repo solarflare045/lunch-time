@@ -17,8 +17,8 @@ export class WifiPower extends Power {
   action(): Observable<any> {
     return Observable.defer(() => {
       _.chain(this.cell.getLinear())
-        .filter(cell => cell.power instanceof SafePower)
-        .each(cell => cell.setMark(cell.power))
+        .filter((cell) => cell.power instanceof SafePower)
+        .each((cell) => cell.setMark(cell.power))
         .value();
 
       return Observable.timer(1000);

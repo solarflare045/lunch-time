@@ -9,7 +9,7 @@ import { LosePower } from './powers/power-lose';
 
 @Injectable()
 export class CellFactory {
-  private random = seedrandom()
+  private random = seedrandom();
 
   constructor(private cellConfig: CellConfigProvider) {
 
@@ -30,9 +30,9 @@ export class CellFactory {
     this.random = seedrandom(seed);
   }
 
-  private build(game: Game, PowerClass: PowerType) {
+  private build(game: Game, powerClass: PowerType) {
     let cell = new Cell(game);
-    let power = new PowerClass(cell);
+    let power = new powerClass(cell);
     cell.setPower(power);
     return cell;
   }

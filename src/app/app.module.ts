@@ -15,15 +15,15 @@ import { QuantumProvider } from '../providers/quantum/quantum';
 @NgModule({
   declarations: [
     MyApp,
-    ...componentsConfig
+    ...componentsConfig,
   ],
   imports: [
-    IonicModule.forRoot(MyApp, {}, deepLinkConfig)
+    IonicModule.forRoot(MyApp, {}, deepLinkConfig),
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [ IonicApp ],
   entryComponents: [
     MyApp,
-    ...componentsConfig
+    ...componentsConfig,
   ],
   providers: [
     CellFactory,
@@ -32,7 +32,7 @@ import { QuantumProvider } from '../providers/quantum/quantum';
     QuantumProvider,
     PlayersProvider,
     Storage,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+  ],
 })
 export class AppModule {}

@@ -4,7 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { CellConfigProvider, PowerOption } from '../../providers/cell/cell-config';
 
 @Component({
-  templateUrl: 'powers.html'
+  templateUrl: 'powers.html',
 })
 export class PowersPage {
   constructor(
@@ -27,8 +27,8 @@ export class PowersPage {
           type: 'number',
           placeholder: 'Weight',
           name: 'weight',
-          value: power.weight.toString()
-        }
+          value: power.weight.toString(),
+        },
       ],
       buttons: [
         {
@@ -36,21 +36,21 @@ export class PowersPage {
           cssClass: 'danger',
           handler: () => {
             power.weight = 0;
-          }
+          },
         },
         {
           text: 'Default',
           handler: () => {
             power.weight = undefined; // This resets the weight to its default setting.
-          }
+          },
         },
         {
           text: 'OK',
           handler: (data) => {
             power.weight = +data.weight;
-          }
-        }
-      ]
+          },
+        },
+      ],
     }).present();
   }
 
@@ -61,13 +61,13 @@ export class PowersPage {
       buttons: [
         {
           text: 'No',
-          role: 'cancel'
+          role: 'cancel',
         },
         {
           text: 'Yes',
-          handler: () => this.cellConfig.resetConfig()
-        }
-      ]
+          handler: () => this.cellConfig.resetConfig(),
+        },
+      ],
     }).present();
   }
 }

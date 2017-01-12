@@ -23,6 +23,6 @@ export class BailOutPower extends Power {
         this.cell.game.currentPlayer.setBailed();
 
       return Observable.empty();
-    })
+    });
   }
 }

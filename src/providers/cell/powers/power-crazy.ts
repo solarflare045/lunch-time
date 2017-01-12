@@ -15,6 +15,6 @@ export class CrazyPower extends Power {
     return Observable.defer(() => {
       this.cell.game.currentPlayer.setCrazy();
       return Observable.timer(1250);
-    })
+    });
   }
 }

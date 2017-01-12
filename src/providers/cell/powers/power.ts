@@ -16,5 +16,5 @@ export abstract class Power {
   public abstract get icon(): string;
   public get disabled(): boolean { return false; }
 
-  protected bound(): void { }
+  protected bound(): void { return; }
 }

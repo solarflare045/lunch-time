@@ -115,13 +115,13 @@ export class Cell {
    * Adjacency helpers.
    */
   public getAdjacent(): Cell[] {
-    return _.compact([this.left, this.up, this.right, this.down]);
+    return _.compact([ this.left, this.up, this.right, this.down ]);
   }
 
   public getLinear(): Cell[] {
-    let properties: string[] = ['left', 'right', 'up', 'down'];
+    let properties: string[] = [ 'left', 'right', 'up', 'down' ];
     let results: Cell[] = [];
-    _.forEach(properties, property => {
+    _.forEach(properties, (property) => {
       let cursor = this;
       while(cursor[property]) {
         cursor = cursor[property];

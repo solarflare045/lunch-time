@@ -16,6 +16,6 @@ export class BuoyPower extends Power {
 
   get disabled(): boolean {
     let curScore = this.cell.game.currentPlayer.score;
-    return !!_.find(this.cell.game.players, player => player.score > curScore);
+    return !!_.find(this.cell.game.players, (player) => player.score > curScore);
   }
 }

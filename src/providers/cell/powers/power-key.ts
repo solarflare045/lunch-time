@@ -18,8 +18,8 @@ export class KeyPower extends Power {
   action(): Observable<any> {
     return Observable.defer(() => {
       let cells = _.chain(this.cell.game.board)
-        .filter(cell => !cell.revealed)
-        .filter(cell => !(cell.power instanceof LosePower || cell.power instanceof LockedPower))
+        .filter((cell) => !cell.revealed)
+        .filter((cell) => !(cell.power instanceof LosePower || cell.power instanceof LockedPower))
         .value();
 
       let cell = _.sample(cells);

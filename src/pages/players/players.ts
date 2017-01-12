@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { PlayersProvider, Player } from '../../providers/players/players';
 
 @Component({
-  templateUrl: 'players.html'
+  templateUrl: 'players.html',
 })
 export class PlayersPage {
   players: Player[];
@@ -32,22 +32,22 @@ export class PlayersPage {
       inputs: [
         {
           name: 'name',
-          placeholder: player.name
-        }
+          placeholder: player.name,
+        },
       ],
       buttons: [
         {
           text: 'Cancel',
-          role: 'cancel'
+          role: 'cancel',
         },
         {
           text: 'OK',
           handler: (data) => {
             player.name = data.name || player.name;
-            this.playersProvider.save()
-          }
-        }
-      ]
+            this.playersProvider.save();
+          },
+        },
+      ],
     }).present();
   }
 
@@ -56,6 +56,6 @@ export class PlayersPage {
   }
 
   reset(): void {
-    this.players.forEach(player => player.score = 0);
+    this.players.forEach((player) => player.score = 0);
   }
 }

@@ -7,15 +7,15 @@ import { PowersPage } from '../pages/powers/powers';
 
 export const deepLinkConfig: DeepLinkConfig = {
   links: [
-    { component: HomePage,    name: 'Home',     segment: 'home'                                       },
-    { component: PlayersPage, name: 'Players',  segment: 'home/players',  defaultHistory: [HomePage]  },
-    { component: PowersPage,  name: 'Powers',   segment: 'home/powers',   defaultHistory: [HomePage]  }
-  ]
+    { component: HomePage,    name: 'Home',     segment: 'home'                                         },
+    { component: PlayersPage, name: 'Players',  segment: 'home/players',  defaultHistory: [ HomePage ]  },
+    { component: PowersPage,  name: 'Powers',   segment: 'home/powers',   defaultHistory: [ HomePage ]  },
+  ],
 };
 
 export const componentsConfig: any[] = [
   HomePage,
   HomeOptionsPage,
   PlayersPage,
-  PowersPage
+  PowersPage,
 ];

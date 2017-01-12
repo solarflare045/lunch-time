@@ -4,7 +4,7 @@ import { ViewController } from 'ionic-angular';
 import { HomePage } from './home';
 
 @Component({
-  templateUrl: 'home-options.html'
+  templateUrl: 'home-options.html',
 })
 export class HomeOptionsPage {
   homePage: HomePage;

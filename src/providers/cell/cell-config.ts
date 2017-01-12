@@ -50,8 +50,8 @@ export const SETUP: PowerSetup[] = [
   { id: 'nuk',  name: 'Nuke',         weight: 1,  power: NuclearPower     , desc: 'Randomly activates all other tiles.' },
   { id: 'rev',  name: 'Reverse',      weight: 5,  power: ReversePower     , desc: 'Reverses the turn order.' },
   { id: 'saf',  name: 'Safe',         weight: 52, power: SafePower        , desc: 'No effect.' },
-  { id: 'thd',  name: 'Thunder Dome', weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' }
-]
+  { id: 'thd',  name: 'Thunder Dome', weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' },
+];
 
 export class PowerOption {
   constructor(
@@ -63,17 +63,17 @@ export class PowerOption {
   }
 
   readonly instance: Power;
-  private get id(): string { return this.base.id; };
-  get name(): string { return this.base.name; };
-  get description(): string { return this.base.desc };
-  get power(): PowerType { return this.base.power; };
-  get chance(): number { return this.cellProvider.getChanceFromWeight(this.weight); };
+  private get id(): string { return this.base.id; }
+  get name(): string { return this.base.name; }
+  get description(): string { return this.base.desc; }
+  get power(): PowerType { return this.base.power; }
+  get chance(): number { return this.cellProvider.getChanceFromWeight(this.weight); }
 
   get weight(): number {
     return this.configSet[this.id] === undefined
       ? this.base.weight
       : this.configSet[this.id];
-  };
+  }
 
   set weight(val: number) {
     this.configSet[this.id] = val;
@@ -90,7 +90,7 @@ export class CellConfigProvider {
     this.storage.get(STORAGE_KEY)
       .then((config: PowerConfig) => {
         this._config = config || {};
-        this._options = _.map(SETUP, power => new PowerOption(power, this._config, this));
+        this._options = _.map(SETUP, (power) => new PowerOption(power, this._config, this));
       });
   }
 
@@ -99,7 +99,7 @@ export class CellConfigProvider {
   }
 
   resetConfig(): void {
-    _.each(this._config, (v, k) => delete this._config[k])
+    _.each(this._config, (v, k) => delete this._config[k]);
     this.saveConfig();
   }
 
@@ -118,7 +118,7 @@ export class CellConfigProvider {
 
   buildRandom(random: () => number = Math.random): IPowerRandomer {
     let options: PowerOption[] = [];
-    _.each(this._options, power => _.times(power.weight, () => options.push(power)));
+    _.each(this._options, (power) => _.times(power.weight, () => options.push(power)));
 
     if (!options.length)
       return new PowerRandomizerEmpty();

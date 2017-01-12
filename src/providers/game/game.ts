@@ -66,7 +66,7 @@ export class Game {
 
   constructor(private cellFactory: CellFactory, players: Player[]) {
     this.players = _.chain(players)
-      .map(player => new GamePlayer(player))
+      .map((player) => new GamePlayer(player))
       .value();
 
     if (this.players.length === 0) {
@@ -159,7 +159,7 @@ export class Game {
   private startTurn(): void {
     if (this.currentPlayer.crazy) {
       let cells = _.chain(this.board)
-        .filter(cell => !cell.disabled && !cell.revealed)
+        .filter((cell) => !cell.disabled && !cell.revealed)
         .value();
 
       if (cells.length > 0)
@@ -181,15 +181,15 @@ export class Game {
         complete: () => {
           this._busy = false;
           this.passTurn();
-        }
+        },
       });
   }
 
   private generate(): void {
     _.chain(_.range(WIDTH * WIDTH))
-      .each(i => this._board[i] = this.cellFactory.create(this))
-      .tap(is => this._board[_.sample(is)] = this.cellFactory.createLose(this))
-      .each(i =>
+      .each((i) => this._board[i] = this.cellFactory.create(this))
+      .tap((is) => this._board[_.sample(is)] = this.cellFactory.createLose(this))
+      .each((i) =>
         this._board[i]._setBorders(
           (i % WIDTH > 0) ? this._board[i - 1] : null,
           (i % WIDTH < WIDTH - 1) ? this._board[i + 1] : null,

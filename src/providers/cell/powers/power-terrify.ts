@@ -18,19 +18,19 @@ export class TerrifyPower extends Power {
     return Observable.timer(750)
       .map<Cell[]>(() =>
         _.chain(this.cell.game.board)
-          .filter(cell => !(cell.power instanceof TerrifyPower || cell.power instanceof LosePower))
-          .filter(cell => cell.revealed)
-          .each(cell => cell.setPower(new TerrifyPower(cell)))
+          .filter((cell) => !(cell.power instanceof TerrifyPower || cell.power instanceof LosePower))
+          .filter((cell) => cell.revealed)
+          .each((cell) => cell.setPower(new TerrifyPower(cell)))
           .value()
       )
       .flatMap((cells) => _.isEmpty(cells) ? Observable.empty() : Observable.timer(750).mapTo(cells))
       .do((cells) => {
         _.each(cells, (cell: Cell) => {
-          let Cls: any = _.sample([LosePower, BaitPower, BombPower, AttackPower, NoScopePower]);
+          let cls: any = _.sample([ LosePower, BaitPower, BombPower, AttackPower, NoScopePower ]);
           cell.hide();
-          cell.setPower(new Cls(cell));
+          cell.setPower(new cls(cell));
           cell.setMark(new TerrifyPower(cell));
-        })
+        });
       });
   }
 }
