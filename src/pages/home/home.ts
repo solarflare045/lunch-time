@@ -9,6 +9,7 @@ import { PlayersPage } from '../players/players';
 import { PowersPage } from '../powers/powers';
 import { Cell } from '../../providers/cell/cell';
 import { GameProvider, Game, GamePlayer } from '../../providers/game/game';
+import { OrientationProvider } from '../../providers/orientation/orientation';
 import { QuantumProvider } from '../../providers/quantum/quantum';
 import { PlayersProvider } from '../../providers/players/players';
 
@@ -65,6 +66,7 @@ interface OrderedPlayer extends GamePlayer {
 export class HomePage {
   game: Game;
   isQuantum: boolean = true;
+  title: Observable<string>;
 
   constructor(
     private navCtrl: NavController,
@@ -73,7 +75,8 @@ export class HomePage {
     private quantumProvider: QuantumProvider,
     private storage: Storage,
     private popoverCtrl: PopoverController,
-    private playersProvider: PlayersProvider
+    private playersProvider: PlayersProvider,
+    private orientationProvider: OrientationProvider,
   ) {
     this.shuffle();
     this.playersProvider.load().then(() => {
@@ -84,6 +87,9 @@ export class HomePage {
         this.isQuantum = isQuantum;
       }
     });
+
+    // Include this subscription on the view. As long as it is subscribed to, the screen orientation is locked to portrait.
+    this.title = this.orientationProvider.lock.startWith('Lunch Time');
   }
 
   presentOptions(myEvent) {

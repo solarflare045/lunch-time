@@ -39,6 +39,7 @@
     "cordova-plugin-console",
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
+    "cordova-plugin-screen-orientation",
     "cordova-plugin-splashscreen"
   ],
   "cordovaPlatforms": [

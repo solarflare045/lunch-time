@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { CellFactory } from '../providers/cell/cell-factory';
 import { CellConfigProvider } from '../providers/cell/cell-config';
 import { GameProvider } from '../providers/game/game';
+import { OrientationProvider } from '../providers/orientation/orientation';
 import { PlayersProvider } from '../providers/players/players';
 import { QuantumProvider } from '../providers/quantum/quantum';
 
@@ -29,8 +30,9 @@ import { QuantumProvider } from '../providers/quantum/quantum';
     CellFactory,
     CellConfigProvider,
     GameProvider,
-    QuantumProvider,
+    OrientationProvider,
     PlayersProvider,
+    QuantumProvider,
     Storage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ],
