@@ -1,11 +1,12 @@
 import { Cell } from '../cell';
 import { Power } from './power';
 
-import { NoScopePower } from './power-noscope';
-import { LosePower } from './power-lose';
+import { AlarmPower } from './power-alarm';
+import { AttackPower } from './power-attack';
 import { BaitPower } from './power-bait';
 import { BombPower } from './power-bomb';
-import { AttackPower } from './power-attack';
+import { LosePower } from './power-lose';
+import { NoScopePower } from './power-noscope';
 
 import { Observable } from 'rxjs';
 import _ from 'lodash';
@@ -18,7 +19,7 @@ export class TerrifyPower extends Power {
     return Observable.timer(750)
       .map<Cell[]>(() =>
         _.chain(this.cell.game.board)
-          .filter((cell) => !(cell.power instanceof TerrifyPower || cell.power instanceof LosePower))
+          .filter((cell) => !(cell.power instanceof TerrifyPower || cell.power instanceof LosePower || cell.power instanceof AlarmPower))
           .filter((cell) => cell.revealed)
           .each((cell) => cell.setPower(new TerrifyPower(cell)))
           .value()
