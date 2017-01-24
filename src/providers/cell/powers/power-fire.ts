@@ -10,7 +10,7 @@ export class FirePower extends Power {
   get icon(): string   { return 'bonfire'; }
 
   action(): Observable<any> {
-    Observable.interval(3000)
+    Observable.interval(5000)
       .takeWhile(() => !this.cell.game.ended)
       .filter(() => !this.cell.game.busy)
       .map(() => {
