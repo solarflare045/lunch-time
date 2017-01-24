@@ -13,7 +13,7 @@ export class AlarmPower extends Power {
   action(): Observable<any> {
     return Observable.defer(() => {
       let detonated = Observable.timer(_.random(5000, 60000))
-        .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
+        .takeWhile(() => this.active)
         .do(() => this._color = 'red')
         .do(() => {
           _.chain(this.cell.game.board)
@@ -27,7 +27,7 @@ export class AlarmPower extends Power {
         });
 
       Observable.interval(500)
-        .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
+        .takeWhile(() => this.active)
         .takeUntil(detonated)
         .do((i) => {
           this._color = (i % 2)
