@@ -20,7 +20,7 @@ export class MagnetPower extends Power {
   get attracting(): boolean {
     return this.active
         && _.chain( this.cell.getAdjacent8() )
-          .some((_cell: Cell) => !(_cell.revealed || _cell.power.disabled))
+          .some((_cell: Cell) => !(_cell.revealed || _cell.power.disabled)) // DO NOT REFER TO _CELL.DISABLED ... WILL CAUSE INFINITE LOOP!
           .value();
   }
 
