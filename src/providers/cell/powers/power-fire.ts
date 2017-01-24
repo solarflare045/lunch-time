@@ -11,9 +11,9 @@ export class FirePower extends Power {
 
   action(): Observable<any> {
     Observable.interval(5000)
-      .takeWhile(() => !this.cell.game.ended)
+      .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
       .filter(() => !this.cell.game.busy)
-      .map(() => {
+      .do(() => {
         let cell = _.sample(
           _.chain(this.cell.game.board)
             .filter((_cell) => !_cell.revealed)

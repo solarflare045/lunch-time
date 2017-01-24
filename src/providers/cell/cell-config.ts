@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Cell } from './cell';
 import { Power } from './powers/power';
 
+import { AlarmPower } from './powers/power-alarm';
 import { AttackPower } from './powers/power-attack';
 import { BailOutPower } from './powers/power-bailout';
 import { BaitPower } from './powers/power-bait';
@@ -38,6 +39,7 @@ interface PowerConfig {
 }
 
 export const SETUP: PowerSetup[] = [
+  { id: 'ala',  name: 'Alarm',        weight: 1,  power: AlarmPower       , desc: 'Kills the current player when it randomly detonates.' },
   { id: 'atk',  name: 'Attack',       weight: 12, power: AttackPower      , desc: 'Next player takes additional turn.' },
   { id: 'bal',  name: 'Bail Out',     weight: 1,  power: BailOutPower     , desc: 'Cancels your extra turns. May remove you from the round!' },
   { id: 'bat',  name: 'Bait',         weight: 2,  power: BaitPower        , desc: 'Makes you panic, but is harmless.' },
