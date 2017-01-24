@@ -37,7 +37,7 @@
     </ion-label>
   </button>
 
-  <button ion-item (click)="restart()">
+  <button ion-item (click)="restart()" [disabled]="!playersAreSetUp">
     <ion-icon name="refresh" item-left>
 
     </ion-icon>

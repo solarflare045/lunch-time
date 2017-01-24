@@ -13,6 +13,10 @@ export class HomeOptionsPage {
     this.homePage = this.viewCtrl.data;
   }
 
+  get playersAreSetUp(): boolean {
+    return this.homePage.playersAreSetUp;
+  }
+
   restart() {
     this.close();
     this.homePage.restart();
