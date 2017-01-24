@@ -12,7 +12,6 @@ import { BaitPower } from './powers/power-bait';
 import { BombPower } from './powers/power-bomb';
 import { BuoyPower } from './powers/power-buoy';
 import { CrazyPower } from './powers/power-crazy';
-import { FirePower } from './powers/power-fire';
 import { KeyPower } from './powers/power-key';
 import { NoScopePower } from './powers/power-noscope';
 import { NuclearPower } from './powers/power-nuclear';
@@ -54,7 +53,9 @@ export const SETUP: PowerSetup[] = [
   { id: 'rev',  name: 'Reverse',      weight: 9,  power: ReversePower     , desc: 'Reverses the turn order.' },
   { id: 'saf',  name: 'Safe',         weight: 52, power: SafePower        , desc: 'No effect.' },
   { id: 'thd',  name: 'Thunder Dome', weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' },
-  { id: 'wfi',  name: 'Wild Fire',    weight: 2,  power: FirePower        , desc: 'Slowly burns away squares.' },
+
+  /** Used IDs **/
+//{ id: 'wfi',  name: 'Wild Fire',    weight: 2,  power: FirePower        , desc: 'Slowly burns away squares.' },
 ];
 
 export class PowerOption {
