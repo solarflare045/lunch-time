@@ -51,7 +51,7 @@ export const SETUP: PowerSetup[] = [
   { id: 'key',  name: 'Key',          weight: 3,  power: KeyPower         , desc: 'Provides you a safe square that only you can use.' },
   { id: 'nos',  name: 'No Scope',     weight: 8,  power: NoScopePower     , desc: 'Activates all tiles in a random direction.' },
   { id: 'nuk',  name: 'Nuke',         weight: 1,  power: NuclearPower     , desc: 'Randomly activates all other tiles.' },
-  { id: 'rev',  name: 'Reverse',      weight: 5,  power: ReversePower     , desc: 'Reverses the turn order.' },
+  { id: 'rev',  name: 'Reverse',      weight: 9,  power: ReversePower     , desc: 'Reverses the turn order.' },
   { id: 'saf',  name: 'Safe',         weight: 52, power: SafePower        , desc: 'No effect.' },
   { id: 'thd',  name: 'Thunder Dome', weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' },
   { id: 'wfi',  name: 'Wild Fire',    weight: 2,  power: FirePower        , desc: 'Slowly burns away squares.' },
