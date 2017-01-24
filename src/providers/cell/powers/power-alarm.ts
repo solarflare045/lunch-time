@@ -11,7 +11,7 @@ export class AlarmPower extends Power {
   get icon(): string { return 'alarm'; }
   
   action(): Observable<any> {
-    let detonated = Observable.timer(_.random(20000, 60000))
+    let detonated = Observable.timer(_.random(5000, 60000))
       .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
       .do(() => this._color = 'red')
       .do(() => {
