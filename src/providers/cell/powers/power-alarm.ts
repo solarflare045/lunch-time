@@ -11,30 +11,32 @@ export class AlarmPower extends Power {
   get icon(): string { return 'alarm'; }
   
   action(): Observable<any> {
-    let detonated = Observable.timer(_.random(5000, 60000))
-      .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
-      .do(() => this._color = 'red')
-      .do(() => {
-        _.chain(this.cell.game.board)
-          .filter((cell) => !cell.revealed)
-          .each((cell) => {
-            let lose = new LosePower(cell);
-            cell.setMark(lose);
-            cell.setPower(lose);
-          })
-          .value();
-      });
+    return Observable.defer(() => {
+      let detonated = Observable.timer(_.random(5000, 60000))
+        .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
+        .do(() => this._color = 'red')
+        .do(() => {
+          _.chain(this.cell.game.board)
+            .filter((cell) => !cell.revealed)
+            .each((cell) => {
+              let lose = new LosePower(cell);
+              cell.setMark(lose);
+              cell.setPower(lose);
+            })
+            .value();
+        });
 
-    Observable.interval(500)
-      .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
-      .takeUntil(detonated)
-      .do((i) => {
-        this._color = (i % 2)
-          ? 'lightgrey'
-          : 'yellow';
-      })
-      .subscribe();
+      Observable.interval(500)
+        .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
+        .takeUntil(detonated)
+        .do((i) => {
+          this._color = (i % 2)
+            ? 'lightgrey'
+            : 'yellow';
+        })
+        .subscribe();
 
-    return Observable.empty();
+      return Observable.empty();
+    });
   }
 }

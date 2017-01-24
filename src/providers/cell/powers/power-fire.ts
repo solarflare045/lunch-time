@@ -10,27 +10,29 @@ export class FirePower extends Power {
   get icon(): string   { return 'bonfire'; }
 
   action(): Observable<any> {
-    Observable.interval(2500)
-      .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
-      .filter(() => !this.cell.game.busy)
-      .do(() => {
-        let cell = _.sample(
-          _.chain(this.cell.game.board)
-            .filter((_cell) => !_cell.revealed)
-            .filter((_cell) => !(_cell.power instanceof LosePower || _cell.power instanceof BurnedPower))
-            .value()
-        );
+    return Observable.defer(() => {
+      Observable.interval(2500)
+        .takeWhile(() => this.cell.revealed && !this.cell.game.ended)
+        .filter(() => !this.cell.game.busy)
+        .do(() => {
+          let cell = _.sample(
+            _.chain(this.cell.game.board)
+              .filter((_cell) => !_cell.revealed)
+              .filter((_cell) => !(_cell.power instanceof LosePower || _cell.power instanceof BurnedPower))
+              .value()
+          );
 
-        if (!cell)
-          return;
+          if (!cell)
+            return;
 
-        let power = new BurnedPower(cell);
-        cell.setPower(power);
-        cell.setMark(power);
-      })
-      .subscribe();
+          let power = new BurnedPower(cell);
+          cell.setPower(power);
+          cell.setMark(power);
+        })
+        .subscribe();
 
-    return Observable.empty();
+      return Observable.empty();
+    });
   }
 }
 
