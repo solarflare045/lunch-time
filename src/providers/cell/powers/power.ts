@@ -16,9 +16,11 @@ export abstract class Power {
   public abstract get icon(): string;
   public get disabled(): boolean { return false; }
 
+  public disableOther(cell: Cell): boolean { return false; }
+
   protected bound(): void { return; }
 
-  protected get active(): boolean {
+  public get active(): boolean {
     return this.cell.power === this // The cell contains this power.
         && this.cell.revealed       // The cell is revealed.
         && !this.cell.game.ended;   // The game hasn't ended.

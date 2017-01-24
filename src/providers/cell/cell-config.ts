@@ -13,6 +13,7 @@ import { BombPower } from './powers/power-bomb';
 import { BuoyPower } from './powers/power-buoy';
 import { CrazyPower } from './powers/power-crazy';
 import { KeyPower } from './powers/power-key';
+import { MagnetPower } from './powers/power-magnet';
 import { NoScopePower } from './powers/power-noscope';
 import { NuclearPower } from './powers/power-nuclear';
 import { ReversePower } from './powers/power-reverse';
@@ -48,6 +49,7 @@ export const SETUP: PowerSetup[] = [
   { id: 'dws',  name: 'Dowse',        weight: 2,  power: WifiPower        , desc: 'Reveals all SAFE tiles in the same row and column.' },
   { id: 'ill',  name: 'Illuminati',   weight: 2,  power: TerrifyPower     , desc: 'Hides some revealed tiles, then changes their power.' },
   { id: 'key',  name: 'Key',          weight: 3,  power: KeyPower         , desc: 'Provides you a safe square that only you can use.' },
+  { id: 'mgn',  name: 'Magnet',       weight: 3,  power: MagnetPower      , desc: 'Forces all players to pick adjacent squares.' },
   { id: 'nos',  name: 'No Scope',     weight: 8,  power: NoScopePower     , desc: 'Activates all tiles in a random direction.' },
   { id: 'nuk',  name: 'Nuke',         weight: 1,  power: NuclearPower     , desc: 'Randomly activates all other tiles.' },
   { id: 'rev',  name: 'Reverse',      weight: 9,  power: ReversePower     , desc: 'Reverses the turn order.' },

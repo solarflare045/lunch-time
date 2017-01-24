@@ -32,7 +32,7 @@ export class Cell {
   }
 
   public get disabled(): boolean {
-    return this._power.disabled;
+    return this._power.disabled || _.some(this.game.board, (cell) => cell.power.disableOther(this));
   }
 
   public get revealed(): boolean {
@@ -116,6 +116,20 @@ export class Cell {
    */
   public getAdjacent(): Cell[] {
     return _.compact([ this.left, this.up, this.right, this.down ]);
+  }
+
+  public getAdjacent8(): Cell[] {
+    let cells: Cell[] = [];
+
+    if (this.left)  cells.push( this.left,  this.left.up,   this.left.down  );
+    if (this.right) cells.push( this.right, this.right.up,  this.right.down );
+    if (this.up)    cells.push( this.up,    this.up.left,   this.up.right   );
+    if (this.down)  cells.push( this.down,  this.down.left, this.down.right );
+
+    return _.chain(cells)
+      .compact()
+      .uniq()
+      .value();
   }
 
   public getLinear(): Cell[] {
