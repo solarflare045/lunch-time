@@ -153,20 +153,22 @@ export class Game {
 
     } finally {
       this.startTurn();
-    }    
+    }
   }
 
   private startTurn(): void {
     if (this.currentPlayer.crazy) {
-      let cells = _.chain(this.board)
-        .filter((cell) => !cell.disabled && !cell.revealed)
-        .value();
+      setTimeout(
+        () => {
+          let cells = _.chain(this.board)
+            .filter((cell) => !cell.disabled && !cell.revealed)
+            .value();
 
-      if (cells.length > 0)
-        setTimeout(
-          () => this.select(_.sample(cells)),
-          1000
-        );
+          if (cells.length > 0)
+            this.select(_.sample(cells));
+        },
+        1000
+      );
     }
   }
 
