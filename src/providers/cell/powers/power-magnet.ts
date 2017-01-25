@@ -14,11 +14,11 @@ export class MagnetPower extends Power {
   }
 
   action(): Observable<any> {
-    return Observable.empty();
+    return Observable.timer(10);
   }
 
   get attracting(): boolean {
-    return this.active
+    return this.active && !this.cell.revealing
         && _.chain( this.cell.getAdjacent8() )
           .some((_cell: Cell) => !(_cell.revealed || _cell.power.disabled)) // DO NOT REFER TO _CELL.DISABLED ... WILL CAUSE INFINITE LOOP!
           .value();
