@@ -9,7 +9,7 @@ export class MagnetPower extends Power {
 
   get animation(): string {
     return this.attracting
-      ? 'flashing'
+      ? 'attracting'
       : null;
   }
 
