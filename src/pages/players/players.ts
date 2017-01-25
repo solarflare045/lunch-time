@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController,ItemSliding } from 'ionic-angular';
 import _ from 'lodash';
 
 import { PlayersProvider, Player } from '../../providers/players/players';
@@ -18,7 +18,7 @@ export class PlayersPage {
   }
 
   create(): void {
-    this.rename(this.playersProvider.add('New Player'));
+    this.rename(this.playersProvider.add('New Player'), null);
   }
 
   delete(player: Player): void {
@@ -26,7 +26,10 @@ export class PlayersPage {
     this.playersProvider.delete(index);
   }
 
-  rename(player: Player): void {
+  rename(player: Player, slidingItem: ItemSliding): void {
+    if (slidingItem)
+      slidingItem.close();
+          
     this.alertCtrl.create({
       title: 'Name',
       inputs: [
@@ -45,6 +48,34 @@ export class PlayersPage {
           handler: (data) => {
             player.name = data.name || player.name;
             this.playersProvider.save();
+          },
+        },
+      ],
+    }).present();
+  }
+
+  score(player: Player, slidingItem: ItemSliding): void {
+    if (slidingItem)
+      slidingItem.close();
+
+    this.alertCtrl.create({
+      title: 'Score',
+      inputs: [
+        {
+          name: 'score',
+          placeholder: player.score.toString(),
+          type: 'number',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'OK',
+          handler: (data) => {
+            player.score = +data.score || player.score;
           },
         },
       ],
