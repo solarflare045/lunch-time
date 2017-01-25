@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { Game } from '../game/game';
 import { Power } from './powers/power';
 
+import { NuclearPower } from './powers/power-nuclear';
+
 export class Cell {
   constructor(public readonly game: Game) {
 
@@ -32,7 +34,11 @@ export class Cell {
   }
 
   public get disabled(): boolean {
-    return this._power.disabled || _.some(this.game.board, (cell) => cell.power.disableOther(this));
+    return !(this._mark instanceof NuclearPower)
+        &&  (
+                this._power.disabled
+            ||  _.some(this.game.board, (cell) => cell.power.disableOther(this))
+            );
   }
 
   public get revealed(): boolean {
@@ -97,7 +103,7 @@ export class Cell {
       if (this._revealed)
         return Observable.empty();
 
-      if (this._power.disabled)
+      if (this.disabled)
         return Observable.empty();
 
       this._revealed = true;
