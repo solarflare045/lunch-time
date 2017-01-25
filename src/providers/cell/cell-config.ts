@@ -11,6 +11,7 @@ import { BailOutPower } from './powers/power-bailout';
 import { BaitPower } from './powers/power-bait';
 import { BombPower } from './powers/power-bomb';
 import { BuoyPower } from './powers/power-buoy';
+import { CarrotPower } from './powers/power-carrot';
 import { CrazyPower } from './powers/power-crazy';
 import { KeyPower } from './powers/power-key';
 import { MagnetPower } from './powers/power-magnet';
@@ -46,6 +47,7 @@ export const SETUP: PowerSetup[] = [
   { id: 'bmb',  name: 'Bomb',         weight: 8,  power: BombPower        , desc: 'Also activately adjecent tiles.' },
   { id: 'buo',  name: 'Buoy',         weight: 5,  power: BuoyPower        , desc: 'Safe, but only usable by losing players.' },
   { id: 'cra',  name: 'Craze',        weight: 1,  power: CrazyPower       , desc: 'For the rest of the round, you choose at random.' },
+  { id: 'crt',  name: 'Carrot',       weight: 4,  power: CarrotPower      , desc: 'Adds a marked Lose square that you cannot press.' },
   { id: 'dws',  name: 'Dowse',        weight: 2,  power: WifiPower        , desc: 'Reveals all SAFE tiles in the same row and column.' },
   { id: 'ill',  name: 'Illuminati',   weight: 2,  power: TerrifyPower     , desc: 'Hides some revealed tiles, then changes their power.' },
   { id: 'key',  name: 'Key',          weight: 3,  power: KeyPower         , desc: 'Provides you a safe square that only you can use.' },
