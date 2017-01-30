@@ -56,6 +56,7 @@ export class Game {
   private _ended: boolean;
 
   private _turn: number = 0;
+  private _skip: number = 0;
   private _repeat: number = 0;
   private _repeatNext: number = 0;
   private _turnStep: number = 1;
@@ -123,6 +124,10 @@ export class Game {
     this._repeatNext += turns;
   }
 
+  addSkip(): void {
+    this._skip++;
+  }
+
   resetRepeat(): void {
     this._repeat = 0;
   }
@@ -146,10 +151,13 @@ export class Game {
       this._repeatNext = 0;
 
       do {
-        this._turn += this._turnStep;
-        if (this._turn < 0) this._turn += this.players.length;
-        if (this._turn >= this.players.length) this._turn -= this.players.length;
-      } while (this.currentPlayer.bailed);
+        do {
+          this._turn += this._turnStep;
+          if (this._turn < 0) this._turn += this.players.length;
+          if (this._turn >= this.players.length) this._turn -= this.players.length;
+        } while (this.currentPlayer.bailed);
+      } while (this._skip-- > 0);
+      this._skip = 0;
 
     } finally {
       this.startTurn();

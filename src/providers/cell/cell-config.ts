@@ -19,6 +19,7 @@ import { NoScopePower } from './powers/power-noscope';
 import { NuclearPower } from './powers/power-nuclear';
 import { ReversePower } from './powers/power-reverse';
 import { SafePower } from './powers/power-safe';
+import { SkipPower } from './powers/power-skip';
 import { TerrifyPower } from './powers/power-terrify';
 import { ThunderDomePower } from './powers/power-thunderdome';
 import { WifiPower } from './powers/power-wifi';
@@ -56,6 +57,7 @@ export const SETUP: PowerSetup[] = [
   { id: 'nuk',  name: 'Nuke',         weight: 1,  power: NuclearPower     , desc: 'Randomly activates all other tiles.' },
   { id: 'rev',  name: 'Reverse',      weight: 9,  power: ReversePower     , desc: 'Reverses the turn order.' },
   { id: 'saf',  name: 'Safe',         weight: 52, power: SafePower        , desc: 'No effect.' },
+  { id: 'skp',  name: 'Skip',         weight: 8,  power: SkipPower        , desc: 'Skips the next player.' },
   { id: 'thd',  name: 'Thunder Dome', weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' },
 
   /** Used IDs **/
