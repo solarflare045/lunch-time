@@ -1,5 +1,6 @@
 import { Power } from './power';
 import { Observable } from 'rxjs';
+import { GamePlayer } from '../../game/game';
 import _ from 'lodash';
 
 import { LosePower } from './power-lose';
@@ -23,7 +24,7 @@ export class CarrotPower extends Power {
 
       let cell = _.sample(cells);
       let lock = new LockedLoseSquare(cell);
-      lock.owner = this.cell.game.turn;
+      lock.owner = this.cell.game.currentPlayer;
 
       if (cell) {
         cell.setPower(lock);
@@ -36,9 +37,9 @@ export class CarrotPower extends Power {
 }
 
 export class LockedLoseSquare extends LosePower {
-  owner: number = null;
+  owner: GamePlayer = null;
 
   get disabled(): boolean {
-    return this.cell.game.turn === this.owner;
+    return this.cell.game.currentPlayer === this.owner;
   }
 }

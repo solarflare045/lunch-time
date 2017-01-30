@@ -1,5 +1,6 @@
 import { Power } from './power';
 import { Observable } from 'rxjs';
+import { GamePlayer } from '../../game/game';
 import _ from 'lodash';
 
 import { SafePower } from './power-safe';
@@ -24,7 +25,7 @@ export class KeyPower extends Power {
 
       let cell = _.sample(cells);
       let lock = new LockedPower(cell);
-      lock.owner = this.cell.game.turn;
+      lock.owner = this.cell.game.currentPlayer;
 
       if (cell) {
         cell.setPower(lock);
@@ -37,10 +38,10 @@ export class KeyPower extends Power {
 }
 
 class LockedPower extends Power {
-  owner: number = null;
+  owner: GamePlayer = null;
 
   get color(): string  { return null; }
-  get disabled(): boolean { return this.cell.game.turn !== this.owner; }
+  get disabled(): boolean { return this.cell.game.currentPlayer !== this.owner; }
   get icon(): string   {
     return this.disabled
       ? 'lock'
@@ -49,7 +50,7 @@ class LockedPower extends Power {
   
   get text(): string {
     return this.disabled
-      ? this.cell.game.players[this.owner].name
+      ? this.owner.name
       : '';
   }
   
