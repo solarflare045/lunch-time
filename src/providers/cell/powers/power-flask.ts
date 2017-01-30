@@ -1,5 +1,5 @@
 import { Power } from './power';
-import { PowerType } from '../cell-config';
+import { Cell } from '../cell';
 
 import { LosePower } from './power-lose';
 
@@ -19,8 +19,8 @@ export class FlaskPower extends Power {
   action(): Observable<any> {
     return Observable.timer(1250)
       .do(() => {
-        let cls: PowerType = _.sample([ FlaskLosePower, FlaskRerollPower ]);
-        let power = new cls(this.cell);
+        let chance = _.random(2, 8) * 10;
+        let power = new FlaskRerollPower(this.cell, chance);
         this.cell.hide();
         this.cell.setPower(power);
         this.cell.setMark(this);
@@ -29,9 +29,23 @@ export class FlaskPower extends Power {
 }
 
 export class FlaskRerollPower extends FlaskPower {
+  constructor(cell: Cell, private chance: number) {
+    super(cell);
+  }
 
-}
+  get text(): string {
+    return this.cell.revealed
+      ? ''
+      : `${ this.chance }%`;
+  }
 
-export class FlaskLosePower extends LosePower {
+  action(): Observable<any> {
+    return Observable.defer(() => {
+      if (_.random(0, 100) > this.chance)
+        return super.action();
 
+      this.cell.setPower(new LosePower(this.cell));
+      return this.cell.power.action();
+    });
+  }
 }
