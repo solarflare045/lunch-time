@@ -14,6 +14,7 @@ export abstract class Power {
   public get animation(): string { return ''; }
   public abstract get color(): string;
   public abstract get icon(): string;
+  public get text(): string { return ''; }
   public get disabled(): boolean { return false; }
 
   public disableOther(cell: Cell): boolean { return false; }

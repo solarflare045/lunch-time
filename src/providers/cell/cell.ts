@@ -33,6 +33,10 @@ export class Cell {
     return this._power.animation;
   }
 
+  public get text(): string {
+    return this._power.text;
+  }
+
   public get disabled(): boolean {
     return !(this._mark instanceof NuclearPower)
         &&  (

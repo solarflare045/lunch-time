@@ -47,6 +47,12 @@ class LockedPower extends Power {
       : 'unlock';
   }
   
+  get text(): string {
+    return this.disabled
+      ? this.cell.game.players[this.owner].name
+      : '';
+  }
+  
   action(): Observable<any> {
     return Observable.defer(() => {
       this.cell.setPower(new SafePower(this.cell));
