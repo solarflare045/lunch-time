@@ -13,6 +13,7 @@ import { BombPower } from './powers/power-bomb';
 import { BuoyPower } from './powers/power-buoy';
 import { CarrotPower } from './powers/power-carrot';
 import { CrazyPower } from './powers/power-crazy';
+import { FlaskPower } from './powers/power-flask';
 import { KeyPower } from './powers/power-key';
 import { MagnetPower } from './powers/power-magnet';
 import { NoScopePower } from './powers/power-noscope';
@@ -50,6 +51,7 @@ export const SETUP: PowerSetup[] = [
   { id: 'cra',  name: 'Craze',        weight: 1,  power: CrazyPower       , desc: 'For the rest of the round, you choose at random.' },
   { id: 'crt',  name: 'Carrot',       weight: 4,  power: CarrotPower      , desc: 'Adds a marked Lose square that you cannot press.' },
   { id: 'dws',  name: 'Dowse',        weight: 2,  power: WifiPower        , desc: 'Reveals all SAFE tiles in the same row and column.' },
+  { id: 'fla',  name: 'Flask',        weight: 3,  power: FlaskPower       , desc: 'Reusable, but might cause a loss.' },
   { id: 'ill',  name: 'Illuminati',   weight: 2,  power: TerrifyPower     , desc: 'Hides some revealed tiles, then changes their power.' },
   { id: 'key',  name: 'Key',          weight: 3,  power: KeyPower         , desc: 'Provides you a safe square that only you can use.' },
   { id: 'mgn',  name: 'Magnet',       weight: 3,  power: MagnetPower      , desc: 'Forces all players to pick adjacent squares.' },
