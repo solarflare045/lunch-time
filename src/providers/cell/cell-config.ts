@@ -60,7 +60,7 @@ export const SETUP: PowerSetup[] = [
   { id: 'rev',  name: 'Reverse',      weight: 9,  power: ReversePower     , desc: 'Reverses the turn order.' },
   { id: 'saf',  name: 'Safe',         weight: 52, power: SafePower        , desc: 'No effect.' },
   { id: 'skp',  name: 'Skip',         weight: 8,  power: SkipPower        , desc: 'Skips the next player.' },
-  { id: 'thd',  name: 'Thunder Dome', weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' },
+  { id: 'thd',  name: 'Thunderdome',  weight: 2,  power: ThunderDomePower , desc: 'You take extra turns. Next player takes a lot more.' },
 
   /** Used IDs **/
 //{ id: 'wfi',  name: 'Wild Fire',    weight: 2,  power: FirePower        , desc: 'Slowly burns away squares.' },
