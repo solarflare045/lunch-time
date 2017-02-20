@@ -130,14 +130,25 @@ export class CellConfigProvider {
   }
 
   buildRandom(random: () => number = Math.random): IPowerRandomer {
-    let options: PowerOption[] = [];
-    _.each(this._options, (power) => _.times(power.weight, () => options.push(power)));
+    let sum = 0;
+    let options: CappedWeightOption[] = _.chain(this._options)
+      .filter((option) => option.weight)
+      .map((option) => ({
+        power: option.power,
+        cumWeight: sum += option.weight,
+      }))
+      .value();
 
     if (!options.length)
       return new PowerRandomizerEmpty();
 
-    return new PowerRandomizer(random, options);
+    return new PowerRandomizer(random, options, sum);
   }
+}
+
+interface CappedWeightOption {
+  power: PowerType;
+  cumWeight: number;
 }
 
 export interface IPowerRandomer {
@@ -147,13 +158,15 @@ export interface IPowerRandomer {
 export class PowerRandomizer implements IPowerRandomer {
   constructor(
     private random: () => number,
-    private options: PowerOption[]
+    private options: CappedWeightOption[],
+    private total: number,
   ) {
 
   }
 
   next(): PowerType {
-    return this.options[ Math.floor(this.random() * this.options.length) ].power;
+    let weight = Math.floor(this.random() * this.total);
+    return _.find( this.options, (option) => option.cumWeight > weight ).power;
   }
 }
 
