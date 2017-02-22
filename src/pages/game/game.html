@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Game Options
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Game Options
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Mode</ion-label>
+
+      <ion-select [(ngModel)]="gameMode">
+        <ion-option
+          *ngFor="let mode of modes"
+          [value]="mode.id">
+          
+          {{ mode.name }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

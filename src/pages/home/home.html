@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{ title | async }}
+      {{ title | async }} :: {{ modeName }}
     </ion-title>
 
     <ion-buttons end>
@@ -17,6 +17,14 @@
     <div class="screen-overlay-text">
       Please add players using the top-right menu.
     </div>
+  </div>
+  
+  <div *ngFor="let message of [ message$ | async ]">
+    <div @overlay class="screen-overlay" *ngIf="message" [style.background-color]="message.color">
+      <div class="screen-overlay-text">
+        {{ message.text }}
+      </div>
+    </div>  
   </div>
 
   <ion-list no-lines>

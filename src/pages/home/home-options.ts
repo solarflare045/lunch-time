@@ -17,6 +17,11 @@ export class HomeOptionsPage {
     return this.homePage.playersAreSetUp;
   }
 
+  game() {
+    this.close();
+    this.homePage.changeGame();
+  }
+
   restart() {
     this.close();
     this.homePage.restart();

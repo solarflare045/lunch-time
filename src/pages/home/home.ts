@@ -5,10 +5,12 @@ import _ from 'lodash';
 import { Storage } from '@ionic/storage';
 
 import { HomeOptionsPage } from './home-options';
+import { GamePage } from '../game/game';
 import { PlayersPage } from '../players/players';
 import { PowersPage } from '../powers/powers';
 import { Cell } from '../../providers/cell/cell';
 import { GameProvider, Game, GamePlayer } from '../../providers/game/game';
+import { GameModeFactory, IMessage } from '../../providers/game/modes/';
 import { OrientationProvider } from '../../providers/orientation/orientation';
 import { QuantumProvider } from '../../providers/quantum/quantum';
 import { PlayersProvider } from '../../providers/players/players';
@@ -29,6 +31,20 @@ interface OrderedPlayer extends GamePlayer {
       })),
 
       transition('void <=> *', animate('350ms ease-out')),
+    ]),
+
+    trigger('overlay', [
+      state('void', style({
+        opacity: 0.0,
+        transform: 'translate(-50%, -40%)',
+      })),
+
+      state('in', style({
+        opacity: 0.9,
+        transform: 'translate(-50%, -50%)',
+      })),
+
+      transition('void <=> *', animate('500ms linear')),
     ]),
 
     trigger('square', [
@@ -65,6 +81,7 @@ interface OrderedPlayer extends GamePlayer {
 })
 export class HomePage {
   game: Game;
+  message$: Observable<IMessage>;
   isQuantum: boolean = true;
   title: Observable<string>;
 
@@ -77,16 +94,28 @@ export class HomePage {
     private popoverCtrl: PopoverController,
     private playersProvider: PlayersProvider,
     private orientationProvider: OrientationProvider,
+    private gameModeFactory: GameModeFactory,
   ) {
     this.shuffle();
-    this.playersProvider.load().then(() => {
-      this.shuffle();
-    });
+    this.gameModeFactory.load()
+      .then(() => this.playersProvider.load())
+      .then(() => this.shuffle());
+
     this.storage.get('isQuantum').then((isQuantum) => {
       if (isQuantum != null) {
         this.isQuantum = isQuantum;
       }
     });
+
+    this.message$ = this.gameModeFactory.messages
+      .concatMap((message) =>
+        Observable.concat(
+          Observable.of(message),
+          <Observable<any>>Observable.timer(3000).ignoreElements(),
+          Observable.of(null),
+          <Observable<any>>Observable.timer(500).ignoreElements(),
+        )
+      );
 
     // Include this subscription on the view. As long as it is subscribed to, the screen orientation is locked to portrait.
     this.title = this.orientationProvider.lock.startWith('Lunch Time');
@@ -95,6 +124,10 @@ export class HomePage {
   presentOptions(myEvent) {
     this.popoverCtrl.create(HomeOptionsPage, this)
       .present({ ev: myEvent });
+  }
+
+  changeGame() {
+    this.navCtrl.push(GamePage);
   }
 
   changePlayers() {
@@ -149,6 +182,10 @@ export class HomePage {
     return this.playersProvider.count > 0;
   }
 
+  get modeName(): string {
+    return this.game.mode.name;
+  }
+
   restart(): void {
     if (this.isQuantum) {
       this.reseed().subscribe({
@@ -160,7 +197,7 @@ export class HomePage {
   }
 
   private shuffle(): void {
-    this.game = this.gameProvider.create(this.playersProvider.players);
+    this.game = this.gameProvider.create(this.playersProvider.players, this.gameModeFactory.mode);
     console.log(_.map(this.game.board, 'power'));
   }
 

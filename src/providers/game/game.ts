@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { CellFactory } from '../cell/cell-factory';
 import { Cell } from '../cell/cell';
 import { Player } from '../players/players';
+import { GameMode } from './modes/';
 
 const WIDTH = 5;
 
@@ -14,8 +15,8 @@ export class GameProvider {
     
   }
 
-  create(players: Player[]): Game {
-    return new Game(this.cellFactory, players);
+  create(players: Player[], mode: GameMode): Game {
+    return new Game(this.cellFactory, mode, players);
   }
 
   reseed(seed: string): void {
@@ -65,8 +66,9 @@ export class Game {
 
   public readonly players: GamePlayer[];
 
-  constructor(private cellFactory: CellFactory, players: Player[]) {
+  constructor(private cellFactory: CellFactory, public readonly mode: GameMode, players: Player[]) {
     this.players = _.chain(players)
+      .thru((plrs) => mode.getPlayers(plrs))
       .map((player) => new GamePlayer(player))
       .value();
 
@@ -76,7 +78,7 @@ export class Game {
     }
 
     this.generate();
-    this._turn = _.sample(_.range(players.length));
+    this._turn = _.sample(_.range(this.players.length));
     this.startTurn();
   }
 
@@ -109,8 +111,11 @@ export class Game {
   }
 
   end(): void {
-    if (!this._ended)
-      this.players[this.turn].lose();
+    if (!this._ended) {
+      let loser = this.players[this.turn];
+      loser.lose();
+      this.mode.gameEnded(loser, this);
+    }
 
     this._ended = true;
     _.each(this.board, (cell) => cell.setMark(cell.power));
